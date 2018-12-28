@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>EazyPay</title>
+</head>
+<body>
+
+<h1 th:utext="${'Logged in as ' + account.getUsername()}">Logged in</h1>
+<div><a th:href="@{/logout}">Logout</a></div>
+
+<div th:text="${'Balance : ' + account.getBalance()}">Balance</div>
+
+<h2>Transfer money</h2>
+
+<div th:if="${message != null}" th:text="${message}">Message</div>
+
+<form action="#" th:action="@{/transfer}" method="POST">
+    <input type="hidden" name="sender" id="sender" th:value="${account.getUsername()}" />
+    <p><label for="reciver">Username: </label>: <input type="text" name="reciver" id="reciver"/></p>
+    <p><label for="amount">Amount: </label>: <input type="number" name="amount" id="amount"/></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+
+<p>You can search users here:</p>
+<form action="#" th:action="@{/search}" method="GET">
+    <p><label for="keyword">Keyword: </label>: <input type="text" name="keyword" id="keyword"/></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+
+<table>
+    <tr>
+        <th>NAME</th>
+    </tr>
+    <tr th:each="prod : ${results}">
+        <td th:text="${prod.id + ' ' + prod.username}">Onions</td>
+    </tr>
+</table>
+
+</body>
+</html>
