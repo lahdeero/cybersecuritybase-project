@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sec.project.domain.Account;
 import sec.project.repository.AccountRepository;
 import sec.project.service.SessionService;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Controller
 public class AccountController {
@@ -20,6 +22,9 @@ public class AccountController {
 
     @Autowired
     private SessionService sessionService;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @PostConstruct
     public void init() {
@@ -59,14 +64,14 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/transfer", method = RequestMethod.POST)
-    public String transfer(@RequestParam("sender") String sender, @RequestParam("reciver") String reciver, @RequestParam("amount") Integer amount, Model model) {
+    public String transfer(@RequestParam("sender") String sender, @RequestParam("receiver") String reciver, @RequestParam("amount") Integer amount, Model model) {
         Account senderAccount = accountRepository.findByUsername(sender);
-        Account reciverAccount = accountRepository.findByUsername(reciver);
+        Account receiverAccount = accountRepository.findByUsername(reciver);
         senderAccount.setBalance(senderAccount.getBalance() - amount);
-        reciverAccount.setBalance(reciverAccount.getBalance() + amount);
+        receiverAccount.setBalance(receiverAccount.getBalance() + amount);
         accountRepository.save(senderAccount);
-        accountRepository.save(reciverAccount);
-        return "redirect:/main?id=" + senderAccount.getId() + "&message=Send successful";
+        accountRepository.save(receiverAccount);
+        return "redirect:/main?id=" + senderAccount.getId() + "&message=Send successfully " + amount + " to " + receiverAccount.getUsername();
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)

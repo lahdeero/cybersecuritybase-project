@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Entity
 public class Account extends AbstractPersistable<Long> {
@@ -19,6 +21,8 @@ public class Account extends AbstractPersistable<Long> {
 
     public Account() {
         super();
+    }
+    public Account(Object[] columns) {
     }
     public Account(String username, String password) {
         this.username = username;

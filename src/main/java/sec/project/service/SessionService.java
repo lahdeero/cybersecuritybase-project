@@ -11,7 +11,7 @@ public class SessionService {
     @Autowired
     private HttpSession session;
 
-    public void sedLoggedUser(String username) {
+    public void setLoggedUser(String username) {
         session.setAttribute("loggedUser", username);
     }
 

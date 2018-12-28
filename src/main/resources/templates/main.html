@@ -16,15 +16,15 @@
 
 <form action="#" th:action="@{/transfer}" method="POST">
     <input type="hidden" name="sender" id="sender" th:value="${account.getUsername()}" />
-    <p><label for="reciver">Username: </label>: <input type="text" name="reciver" id="reciver"/></p>
+    <p><label for="receiver">Receiver: </label>: <input type="text" name="receiver" id="receiver"/></p>
     <p><label for="amount">Amount: </label>: <input type="number" name="amount" id="amount"/></p>
-    <p><input type="submit" value="Submit" /></p>
+    <p><input type="submit" value="Send" /></p>
 </form>
 
 <p>You can search users here:</p>
 <form action="#" th:action="@{/search}" method="GET">
     <p><label for="keyword">Keyword: </label>: <input type="text" name="keyword" id="keyword"/></p>
-    <p><input type="submit" value="Submit" /></p>
+    <p><input type="submit" value="Search" /></p>
 </form>
 
 <table>
@@ -32,7 +32,7 @@
         <th>NAME</th>
     </tr>
     <tr th:each="prod : ${results}">
-        <td th:text="${prod.id + ' ' + prod.username}">Onions</td>
+        <td th:utext="${prod.id + ' ' + prod.username}">Onions</td>
     </tr>
 </table>
 
